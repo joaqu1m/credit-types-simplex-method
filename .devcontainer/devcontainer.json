@@ -1,0 +1,22 @@
+{
+	"name": "phased-implementation-simplex-method",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devcontainer",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"features": {
+		"ghcr.io/devcontainers/features/python": {
+			"version": "3.12.7"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-python.python",
+				"ms-toolsai.jupyter",
+				"GrapeCity.gc-excelviewer"
+			]
+		}
+	},
+	"postCreateCommand": "pip install -r .devcontainer/requirements.txt"
+}

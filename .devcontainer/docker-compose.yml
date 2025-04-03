@@ -1,0 +1,11 @@
+name: phased-implementation-simplex-method
+version: '3.8'
+services:
+  devcontainer:
+    container_name: phased-implementation-simplex-method
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
