@@ -13,7 +13,7 @@ Project phased implementation involves determining the optimal way to implement 
   - `solver.ipynb`: Core implementation of the Simplex Method
 - `resources/`: Supporting data files
   - `solver-data.xlsx`: Excel file with problem data
-  - `old-expl.txt`: Additional explanatory notes
+- `article`: Contains the article related files
 
 ## Development Environment
 This project uses a DevContainer for consistent development experience. The DevContainer:
