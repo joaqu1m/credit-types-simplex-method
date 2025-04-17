@@ -72,14 +72,14 @@ Para entender o desafio que vamos analisar com o Método Simplex, vamos primeiro
 No nosso projeto, simulamos que a AutoProvision realizou um estudo aprofundado do mercado. Para isso, ela combinou dados históricos do setor de crédito (inspirados em informações que poderiam vir de fontes reais como o Banco Central do Brasil, cobrindo o período desde 2012) com os resultados de um formulário próprio, aplicado para medir o interesse de potenciais clientes em diferentes tipos de empréstimo.
 
 Após coletar e organizar essas informações, a AutoProvision chegou a um resumo das principais modalidades de crédito que poderia oferecer, junto com algumas métricas para cada uma delas:
-| Modalidade | Propostas Recebidas | Capital Necessário (Média por cliente) | Taxa de Juros (%) | Taxa de Inadimplência (%) |
-|------------|---------------------|----------------------------------------|-------------------|---------------------------|
-| Capital de Giro | 1400 | 18000 | 2.13 | 0.08 |
-| Cheque Especial | 600 | 10000 | 8.16 | 0.07 |
-| Crédito Pessoal | 1600 | 15000 | 6.43 | 0.05 |
-| Crédito Pessoal Consignado | 6000 | 12500 | 2.36 | 0.10 |
-| Financiamento Imobiliário | 3400 | 13425 | 0.81 | 0.15 |
-| Aquisição de Veículos | 3400 | 8500 | 1.86 | 0.23 |
+| Modalidade                 | Propostas Recebidas | Capital Necessário (Média por cliente) | Taxa de Juros (%) | Taxa de Inadimplência (%) |
+| -------------------------- | ------------------- | -------------------------------------- | ----------------- | ------------------------- |
+| Capital de Giro            | 1400                | 18000                                  | 2.13              | 0.08                      |
+| Cheque Especial            | 600                 | 10000                                  | 8.16              | 0.07                      |
+| Crédito Pessoal            | 1600                | 15000                                  | 6.43              | 0.05                      |
+| Crédito Pessoal Consignado | 6000                | 12500                                  | 2.36              | 0.10                      |
+| Financiamento Imobiliário  | 3400                | 13425                                  | 0.81              | 0.15                      |
+| Aquisição de Veículos      | 3400                | 8500                                   | 1.86              | 0.23                      |
 
 | Tabela 1: Resumo das modalidades de crédito e suas características.
 
@@ -91,8 +91,26 @@ E é exatamente aqui que a otimização se torna crucial. Tendo essas limitaçõ
 
 ## 3. Modelo
 
+### 3.1. Variáveis
+
+### 3.2. Função Objetivo
+
+### 3.3. Restrições
+
+## 4. Aplicação Prática
+
+### 4.1. Como a PuLP funciona?
+
+### 4.2. Resolvendo o problema com a PuLP
+
+### 4.3. Análise com sliders
+
+### 4.4. Modelo Gráfico
+
 ## 7. Referências
 
 - [Simplex Algorithm - Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
 - [COIN-OR Foundation - Computational Infrastructure for Operations Research](https://www.coin-or.org/).
 - [Optimization with PuLP - The PuLP Documentation](https://coin-or.github.io/pulp/).
+- [Base de operações de crédito do SCR - Banco Central do Brasil](https://dadosabertos.bcb.gov.br/dataset/scr_data).
+- [Base de taxas de juros - Banco Central do Brasil](https://www.bcb.gov.br/estatisticas/txjuros).
