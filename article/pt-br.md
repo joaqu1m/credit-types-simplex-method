@@ -1,21 +1,15 @@
 # Aplicação do método Simplex na otimização de uma implementação gradual em modalidades de crédito
 
-<!-- Importante antes de começar - Dar uma estudada nos termos técnicos do simplex -->
-
 ## Sumário
 
 - [Resumo](#resumo)
 
-<!-- O que é um simplex? Por que escolhi utilizar um modelo simplex? -->
 - [Introdução](#1-introdução)
 
-<!-- Qual é o problema? -->
 - [Problema](#2-problema)
 
-<!-- Explicando as características técnicas do modelo - Variáveis (e suas motivações), função objetivo, restrições, como isso vai resolver o problema -->
 - [Modelo](#3-modelo)
 
-<!-- Mostrando os múltiplos métodos de resolução de problemas LP com pulp, explicando o código, e finalizando com uma análise com sliders -->
 - [Aplicação Prática](#4-aplicação-prática)
 
 <!-- Falamos sobre o que esses dados significam, e como vamos nos organizar para a próxima iteração do modelo -->
@@ -39,7 +33,11 @@ No dia a dia de muitas áreas técnicas, como logística, produção, finanças 
 
 Muitos desses problemas se encaixam em uma categoria chamada Programação Linear (PL). A ideia é relativamente simples: são problemas onde tanto o objetivo que você quer alcançar (ex: maximizar lucro) quanto as limitações que você enfrenta (ex: orçamento disponível, horas de trabalho) podem ser descritos usando equações ou inequações lineares – são relações diretas, sem potências ou multiplicações entre as variáveis. Mesmo parecendo simples, a PL é uma ferramenta poderosa para representar e resolver muitas situações práticas.
 
+<img src="assets/lp_prob.webp" alt="Problema de programação linear em notação matemática" width="400"/>
+
 E como resolvemos esses problemas de Programação Linear? Uma das ferramentas mais conhecidas e fundamentais para isso é o Método Simplex. Criado por George Dantzig nos anos 40, o Simplex é, essencialmente, um algoritmo, uma receita passo a passo. Imagine que todas as soluções possíveis que respeitam suas limitações formam uma espécie de "região" geométrica com cantos bem definidos. O Método Simplex funciona de forma iterativa: ele começa em um desses cantos (uma solução inicial válida) e vai "pulando" para cantos vizinhos, sempre buscando um que melhore o resultado do seu objetivo (mais lucro, menos custo, etc.). Ele continua fazendo isso até encontrar um canto onde não há mais para onde ir para melhorar – esse é o ponto ótimo, a melhor resposta para o seu problema.
+
+<img src="assets/simplex.png" alt="Um sistema de inequações lineares" width="400" style="background: white;" />
 
 Para utilizar o algoritmo Simplex no contexto da programação, você precisa de um software que implemente esse algoritmo. Existem várias opções disponíveis, desde ferramentas comerciais até bibliotecas de código aberto. Uma das mais populares e acessíveis é a PuLP, a biblioteca Python que estaremos utilizando em um ambiente de Jupyter Notebook.
 
@@ -50,6 +48,8 @@ A PuLP permite que você traduza os elementos matemáticos da programação line
 - Criar as Variáveis: Você declara as variáveis de decisão (aquelas que o Simplex vai encontrar o valor ótimo), como a quantidade de cada produto a fabricar (usando LpVariable("NomeDaVariavel", lowBound=0) para indicar que não pode ser negativa, por exemplo).
 - Adicionar a Função Objetivo: Você escreve a expressão matemática que quer otimizar (como 2\*x + 3\*y) e a adiciona ao seu objeto de problema.
 - Adicionar as Restrições: Da mesma forma, você escreve suas limitações (como x + y <= 100) e as adiciona ao problema.
+
+<img src="assets/pulp_example_code.png" alt="Código PuLP" width="800" />
 
 Depois de modelar o problema dessa forma, a PuLP faz a "mágica": ela se comunica com solvers (solucionadores) externos – programas que efetivamente contêm implementações eficientes do Simplex (ou outros algoritmos de otimização). Alguns solvers comuns que a PuLP pode usar são o CBC (que geralmente vem junto ou é fácil de instalar), GLPK, Gurobi ou CPLEX. A PuLP formata seu problema, envia para o solver escolhido, e depois traz a resposta de volta para o seu código Python, informando os valores ótimos para suas variáveis e o resultado da função objetivo.
 
@@ -93,9 +93,74 @@ E é exatamente aqui que a otimização se torna crucial. Tendo essas limitaçõ
 
 ### 3.1. Variáveis
 
+O coração do problema é decidir quantos clientes vamos aceitar para cada uma das seis modalidades de crédito disponíveis. Essas quantidades são exatamente as variáveis de decisão que o Método Simplex vai otimizar. Essas quantidades são:
+
+- $x1$: Número de clientes aceitos para Capital de Giro
+- $x2$: Número de clientes aceitos para Cheque Especial
+- $x3$: Número de clientes aceitos para Crédito Pessoal
+- $x4$: Número de clientes aceitos para Crédito Pessoal Consignado
+- $x5$: Número de clientes aceitos para Financiamento Imobiliário
+- $x6$: Número de clientes aceitos para Aquisição de Veículos
+
+É importante notar que esses valores não podem ser negativos, então todos eles devem ser maiores ou iguais a zero ($xi ≥0$). O objetivo do Simplex será encontrar os valores ideais para $x1 $, $x2 $, ... , $x6 $.
+
 ### 3.2. Função Objetivo
 
+O objetivo principal é claro: maximizar o lucro total esperado. Para construir a fórmula que representa isso, calculamos o lucro estimado gerado por um único cliente em cada modalidade. Uma estimativa feita a partir da multiplicação da taxa de juros mensal pela média de capital necessário para aquele tipo de empréstimo.
+
+> Lucro do Cliente Individual = Taxas de Juros (%) * Capital Necessário Médio * Quantidade de Clientes
+
+- Capital de Giro = 2.13% × R$18.000 × $x1$
+- Cheque Especial = 8.16% × R$10.000 × $x2$
+- Crédito Pessoal = 6.43% × R$15.000 × $x3$
+- Crédito Pessoal Consignado = 2.36% × R$12.500 × $x4$
+- Financiamento Imobiliário = 0.81% × R$13.425 × $x5$
+- Aquisição de Veículos = 1.86% × R$8.500 × $x6$
+
+O lucro total, que queremos maximizar, será a soma do lucro obtido com todos os clientes aceitos em cada modalidade. Matematicamente, nossa função objetivo é:
+
+> Maximizar Lucro = Lucro $x1$ + Lucro $x2$ + Lucro $x3$ + Lucro $x4$ + Lucro $x5$ + Lucro $x6$
+
 ### 3.3. Restrições
+
+Agora, precisamos definir as limitações e regras que a AutoProvision precisa seguir nesta fase inicial. Essas são as restrições do nosso modelo:
+
+- **Limite Total de Clientes**: A capacidade operacional para esta fase é de, no máximo, 6.000 clientes. Portanto, a soma de todos os clientes aceitos nas diferentes modalidades não pode ultrapassar esse valor.
+
+> $x1 + x2 + x3 + x4 + x5 + x6 ≤ 6000$
+
+- **Limite de Demanda por Modalidade**: Não podemos aceitar mais clientes para uma modalidade do que o número de propostas que recebemos (conforme a Tabela 1). Isso gera uma restrição para cada tipo de empréstimo:
+> $x1 ≤ 1400$ (Máximo para Capital de Giro)
+
+> $x2 ≤ 600$ (Máximo para Cheque Especial)
+
+> $x3 ≤ 1600$ (Máximo para Crédito Pessoal)
+
+> $x4 ≤ 6000$ (Máximo para Crédito Pessoal Consignado)
+
+> $x5 ≤ 3400$ (Máximo para Financiamento Imobiliário)
+
+> $x6 ≤ 3400$ (Máximo para Aquisição de Veículos)
+
+- **Limite de Capital Total**: O orçamento total disponível para alocar nos empréstimos nesta fase é de R$ 125.000.000,00.
+
+> $18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000$
+
+- **Mínimo de Clientes por Modalidade (Diversificação/Teste)**: Para garantir que tenhamos uma boa taxa de exploração e que ganhemos experiência em todas as linhas de crédito oferecidas, foi definida uma regra de negócio que exige a aceitação de um número mínimo de clientes em cada categoria. Analisando a implementação, parece que esse mínimo foi estabelecido em 400 clientes por modalidade. Isso garante uma amostra mínima para análise de viabilidade de cada produto.
+
+> x1 ≥ 400
+
+> x2 ≥ 400
+
+> x3 ≥ 400
+
+> x4 ≥ 400
+
+> x5 ≥ 400
+
+> x6 ≥ 400
+
+Com essas variáveis, a função objetivo e todas as restrições devidamente definidas, temos um modelo completo de Programação Linear. Agora, podemos usar um solver (como o PuLP, utilizado no código) que implementa o Método Simplex (ou um algoritmo similar) para encontrar os valores de $x1$ a $x6$ que maximizam o lucro total, respeitando todas essas regras impostas.
 
 ## 4. Aplicação Prática
 
