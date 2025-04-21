@@ -12,7 +12,6 @@
 
 - [Aplicação Prática](#4-aplicação-prática)
 
-<!-- Falamos sobre o que esses dados significam, e como vamos nos organizar para a próxima iteração do modelo -->
 - [Resultados](#5-resultados)
 
 - [Conclusão](#6-conclusão)
@@ -72,6 +71,7 @@ Para entender o desafio que vamos analisar com o Método Simplex, vamos primeiro
 No nosso projeto, simulamos que a AutoProvision realizou um estudo aprofundado do mercado. Para isso, ela combinou dados históricos do setor de crédito (inspirados em informações que poderiam vir de fontes reais como o Banco Central do Brasil, cobrindo o período desde 2012) com os resultados de um formulário próprio, aplicado para medir o interesse de potenciais clientes em diferentes tipos de empréstimo.
 
 Após coletar e organizar essas informações, a AutoProvision chegou a um resumo das principais modalidades de crédito que poderia oferecer, junto com algumas métricas para cada uma delas:
+
 | Modalidade                 | Propostas Recebidas | Capital Necessário (Média por cliente) | Taxa de Juros (%) |
 | -------------------------- | ------------------- | -------------------------------------- | ----------------- |
 | Capital de Giro            | 1400                | 18000                                  | 2.13              |
@@ -241,6 +241,7 @@ from pulp import *
 Com o ambiente pronto, começamos a construir o modelo:
 
 1. **Criando o "esqueleto" do problema:** Indicamos que queremos criar um problema chamado 'Maximizar_Lucro_Modalidades_Credito' e que o objetivo é de maximização (LpMaximize).
+
 2. **Declarando as variáveis de decisão:** Definimos nossas variáveis x1​ a x6​, que representarão a quantidade de clientes para cada modalidade. Usamos lowBound=0 para garantir que esses números não sejam negativos.
 
     ```python
@@ -466,7 +467,38 @@ O resultado final é um gráfico que ilustra as restrições do problema e a reg
 
 <img src="assets/graphic_example.png" alt="Exemplo de gráfico do problema" width="600"/>
 
-## 5. Conclusão
+## 5. Resultados
+
+Após a execução do modelo de Programação Linear, chegamos à combinação ótima de clientes por modalidade de crédito que maximiza o lucro esperado da AutoProvision, dadas as restrições definidas para esta fase inicial de implementação gradual.
+
+Os resultados obtidos foram os seguintes:
+
+- **Clientes de Capital de Giro:** 1400 clientes
+- **Clientes de Cheque Especial:** 600 clientes
+- **Clientes de Crédito Pessoal:** 1600 clientes
+- **Clientes de Crédito Pessoal Consignado:** 1600 clientes
+- **Clientes de Financiamento Imobiliário:** 400 clientes
+- **Clientes de Aquisição de Veículos:** 400 clientes
+
+Com essa distribuição de clientes, o Lucro Total máximo estimado para o primeiro mês do primeiro ciclo é de **R$ 3.148.297,00** (valor bastante elevado, considerando o altíssimo investimento).
+
+### Análise dos Resultados e Implicações para o Negócio
+
+Esses números nos oferecem insights valiosos sobre como devemos direcionar nossos esforços e recursos neste início de operação:
+
+1. **Modalidades no Limite da Demanda:** As modalidades de Crédito Pessoal e Crédito Pessoal Consignado atingiram exatamente o número máximo de propostas recebidas que definimos como limite superior. Isso sugere que, dentro das restrições atuais (especialmente de capital e capacidade total), essas são as modalidades mais atrativas do ponto de vista do lucro gerado por cliente ou pela combinação de lucro e uso de capital.
+
+2. **Modalidades no Limite Mínimo:** Por outro lado, Financiamento Imobiliário e Aquisição de Veículos ficaram no piso mínimo de 400 clientes estabelecido como regra de negócio para manter a diversificação e o aprendizado em todas as linhas. Isso indica que, caso o foco desse ciclo fosse a maximização do lucro, essas modalidades seriam menos prioritárias. A restrição mínima com certeza foi o motivo para garantir que elas fossem incluídas na carteira inicial.
+
+3. **Capital de Giro e Cheque Especial:** Essas modalidades tiveram resultados mais específicos; Não atingiram seu limite máximo de demanda (que era 1600), mas ficaram acima do mínimo de 400. Isso mostra que o modelo está corretamente aplicando restrições de forma bastante específica, com restrições fazendo efeito além das mais exigentes (quantidade mínima e máxima).
+
+### Próximos Passos na Implementação Gradual
+
+Com estes resultados em mãos, a AutoProvision tem um plano mais otimizado para o primeiro ciclo de sua implementação gradual. A estratégia será focar na captação e atendimento das quantidades exatas de clientes indicadas pelo modelo para cada modalidade.
+
+Este primeiro ciclo servirá não apenas para gerar o lucro previsto, mas também como uma validação prática do modelo e do negócio. Será de extrema importância coletar dados reais sobre os custos, a inadimplência e o comportamento dos clientes em cada modalidade. Essas informações serão fundamentais para refinar o modelo (ajustando taxas de lucro esperadas, por exemplo) e reavaliar as restrições (como o limite de capital ou a capacidade de atendimento) para os próximos ciclos de expansão do negócio.
+
+## 6. Conclusão
 
 ## 7. Referências
 
