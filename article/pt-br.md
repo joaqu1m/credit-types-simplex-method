@@ -81,8 +81,6 @@ Após coletar e organizar essas informações, a AutoProvision chegou a um resum
 | Financiamento Imobiliário  | 3400                | 13425                                  | 0.81              | 0.15                      |
 | Aquisição de Veículos      | 3400                | 8500                                   | 1.86              | 0.23                      |
 
-| Tabela 1: Resumo das modalidades de crédito e suas características.
-
 Com essa tabela em mãos, surge o problema central: se a AutoProvision decidisse aceitar todas as propostas recebidas de seus potenciais clientes, o montante total de capital necessário para financiar essas operações seria extremamente elevado. Para uma empresa (ainda mais em fase inicial ou de teste), assumir um volume tão grande de operações de uma só vez seria um risco financeiro considerável.
 
 Diante disso, a estratégia mais sensata seria iniciar com uma implementação gradual. Ou seja, começar operando com um volume menor, testar a viabilidade do modelo de negócio, ajustar processos e, só depois, buscar mais investimento para expandir a carteira de clientes. Para essa fase inicial, a AutoProvision precisaria definir limites claros: um número máximo de clientes que poderia atender e um teto para o capital total que poderia alocar.
@@ -108,7 +106,7 @@ O coração do problema é decidir quantos clientes vamos aceitar para cada uma 
 
 O objetivo principal é claro: maximizar o lucro total esperado. Para construir a fórmula que representa isso, calculamos o lucro estimado gerado por um único cliente em cada modalidade. Uma estimativa feita a partir da multiplicação da taxa de juros mensal pela média de capital necessário para aquele tipo de empréstimo.
 
-> Lucro do Cliente Individual = Taxas de Juros (%) * Capital Necessário Médio * Quantidade de Clientes
+`Lucro do Cliente Individual = Taxas de Juros (%) * Capital Necessário Médio * Quantidade de Clientes`
 
 - Capital de Giro = 2.13% × R$18.000 × $x1$
 - Cheque Especial = 8.16% × R$10.000 × $x2$
@@ -119,7 +117,7 @@ O objetivo principal é claro: maximizar o lucro total esperado. Para construir 
 
 O lucro total, que queremos maximizar, será a soma do lucro obtido com todos os clientes aceitos em cada modalidade. Matematicamente, nossa função objetivo é:
 
-> Maximizar Lucro = Lucro $x1$ + Lucro $x2$ + Lucro $x3$ + Lucro $x4$ + Lucro $x5$ + Lucro $x6$
+`Maximizar Lucro = Lucro $x1$ + Lucro $x2$ + Lucro $x3$ + Lucro $x4$ + Lucro $x5$ + Lucro $x6$`
 
 ### 3.3. Restrições
 
@@ -127,44 +125,90 @@ Agora, precisamos definir as limitações e regras que a AutoProvision precisa s
 
 - **Limite Total de Clientes**: A capacidade operacional para esta fase é de, no máximo, 6.000 clientes. Portanto, a soma de todos os clientes aceitos nas diferentes modalidades não pode ultrapassar esse valor.
 
-> $x1 + x2 + x3 + x4 + x5 + x6 ≤ 6000$
+`$x1 + x2 + x3 + x4 + x5 + x6 ≤ 6000$`
 
 - **Limite de Demanda por Modalidade**: Não podemos aceitar mais clientes para uma modalidade do que o número de propostas que recebemos (conforme a Tabela 1). Isso gera uma restrição para cada tipo de empréstimo:
-> $x1 ≤ 1400$ (Máximo para Capital de Giro)
+`$x1 ≤ 1400$ (Máximo para Capital de Giro)`
 
-> $x2 ≤ 600$ (Máximo para Cheque Especial)
+`$x2 ≤ 600$ (Máximo para Cheque Especial)`
 
-> $x3 ≤ 1600$ (Máximo para Crédito Pessoal)
+`$x3 ≤ 1600$ (Máximo para Crédito Pessoal)`
 
-> $x4 ≤ 6000$ (Máximo para Crédito Pessoal Consignado)
+`$x4 ≤ 6000$ (Máximo para Crédito Pessoal Consignado)`
 
-> $x5 ≤ 3400$ (Máximo para Financiamento Imobiliário)
+`$x5 ≤ 3400$ (Máximo para Financiamento Imobiliário)`
 
-> $x6 ≤ 3400$ (Máximo para Aquisição de Veículos)
+`$x6 ≤ 3400$ (Máximo para Aquisição de Veículos)`
 
 - **Limite de Capital Total**: O orçamento total disponível para alocar nos empréstimos nesta fase é de R$ 125.000.000,00.
 
-> $18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000$
+`$18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000$`
 
 - **Mínimo de Clientes por Modalidade (Diversificação/Teste)**: Para garantir que tenhamos uma boa taxa de exploração e que ganhemos experiência em todas as linhas de crédito oferecidas, foi definida uma regra de negócio que exige a aceitação de um número mínimo de clientes em cada categoria. Analisando a implementação, parece que esse mínimo foi estabelecido em 400 clientes por modalidade. Isso garante uma amostra mínima para análise de viabilidade de cada produto.
 
-> x1 ≥ 400
+`x1 ≥ 400`
 
-> x2 ≥ 400
+`x2 ≥ 400`
 
-> x3 ≥ 400
+`x3 ≥ 400`
 
-> x4 ≥ 400
+`x4 ≥ 400`
 
-> x5 ≥ 400
+`x5 ≥ 400`
 
-> x6 ≥ 400
+`x6 ≥ 400`
 
 Com essas variáveis, a função objetivo e todas as restrições devidamente definidas, temos um modelo completo de Programação Linear. Agora, podemos usar um solver (como o PuLP, utilizado no código) que implementa o Método Simplex (ou um algoritmo similar) para encontrar os valores de $x1$ a $x6$ que maximizam o lucro total, respeitando todas essas regras impostas.
 
 ## 4. Aplicação Prática
 
 ### 4.1. Como a PuLP funciona?
+
+Quando usamos a PuLP, estamos escrevendo código Python, mas a biblioteca precisa transformar isso em uma representação matemática que um solver (o programa que realmente faz as contas da otimização, como o CBC) consiga entender. A mágica acontece através de como a PuLP lida com as operações que fazemos com suas variáveis.
+
+#### Construindo a Função Objetivo
+
+Quando você escreve algo como:
+```python
+modelo += 383.40 * x1
+modelo += 816.00 * x2
+```
+
+Usamos `+=` sem nenhum sinal de comparação (como `<=`, `>=`, `==`). É assim que a PuLP sabe que estamos adicionando um termo à função objetivo do modelo. Você pode adicionar quantos termos quiser; a PuLP vai somar todos eles para formar a expressão final que queremos maximizar (ou minimizar).
+
+Mas o que realmente acontece quando escrevemos `383.40 * x1`? A PuLP "redefine" os operadores matemáticos comuns do Python (como *, +, -, /, usando operator overloaders) quando aplicados às suas variáveis especiais (LpVariable, como o nosso x1). Em vez de simplesmente fazer a conta 383.40 vezes o valor atual de x1 (que nem sabemos qual é ainda), a PuLP cria um objeto interno, uma espécie de "mini-fórmula" chamada `pulp.LpAffineExpression`. Esse objeto representa a ideia matemática de "383.40 × o valor final de x1".
+
+A PuLP vai construindo a estrutura matemática completa do seu problema, ela não resolve nada na hora; ela monta a receita inteira (variáveis, objetivo, restrições) para depois entregar tudo ao solver, que é quem vai encontrar os valores ótimos.
+
+Se você fizer várias operações na mesma variável sequencialmente, ela já simplifica o que for possível. Veja a tabela que você preparou, que ilustra bem isso:
+
+| Código               | Interpretação da PuLP | Explicação                                                               |
+| -------------------- | --------------------- | ------------------------------------------------------------------------ |
+| `1.5*x1`             | `'1.5*x1'`            | Exemplo convencional                                                     |
+| `1.5*x1 + 1.5`       | `'1.5*x1 + 1.5'`      | Operações diferentes (multiplicação e soma), nada pré-calculado          |
+| `1.5*x1 + 1.5*x2`    | `'1.5*x1 + 1.5*x2'`   | Mesma operação, mas em variáveis diferentes (x1, x2), nada pré-calculado |
+| `10*1.5*x1 + 1.5*x2` | `'15.0*x1 + 1.5*x2'`  | Multiplicações seguidas na mesma variável (x1), PuLP já calcula 10*1.5   |
+| `1.5*x1*10 + 1.5*x2` | `'15.0*x1 + 1.5*x2'`  | Mesmo com o *10 depois, a PuLP simplifica a parte referente a x1         |
+
+Caso seja necessário, o PuLP te dá um método de visualização para cada variável da função objetivo:
+
+<img src="assets/objective_visualization.png" alt="Exemplo de visualização da função objetivo" width="500"/>
+
+#### Definindo as Restrições
+
+E como a PuLP sabe que algo é uma restrição e não parte do objetivo? Pela presença dos operadores de comparação. Quando você escreve:
+
+```python
+modelo += 18000*x1 + 10000*x2 + ... <= 125000000
+```
+
+O uso do <= (ou >=, ==) é o sinal para a PuLP. A biblioteca usa a "mágica" da redefinição de operadores (neste caso, os de comparação como __le__ para <=, __ge__ para >=, etc.). Em vez de verificar se a condição é verdadeira ou falsa agora, a PuLP cria um objeto que representa a restrição inteira: a expressão do lado esquerdo, o tipo de comparação e o valor do lado direito.
+
+Essa restrição completa é adicionada à lista de regras do modelo. O solver, quando chamado pelo comando modelo.solve(), receberá todas essas restrições e terá que encontrar uma solução que respeite todas elas, ao mesmo tempo que otimiza a função objetivo.
+
+As restrições (ou constraints) do modelo podem ser visualizados a qualquer momento com os atributos `modelo.constraints` ou `modelo.coefficients` (coeficientes são os pesos atribuídos à cada variável usada na constraint); Como no exemplo:
+
+<img src="assets/constraints_example.png" alt="Exemplo de visualização das restrições" width="500"/>
 
 ### 4.2. Resolvendo o problema com a PuLP
 
