@@ -123,40 +123,41 @@ O lucro total, que queremos maximizar, será a soma do lucro obtido com todos os
 
 Agora, precisamos definir as limitações e regras que a AutoProvision precisa seguir nesta fase inicial. Essas são as restrições do nosso modelo:
 
-- **Limite Total de Clientes**: A capacidade operacional para esta fase é de, no máximo, 6.000 clientes. Portanto, a soma de todos os clientes aceitos nas diferentes modalidades não pode ultrapassar esse valor.
+- **Limite Total de Clientes:** A capacidade operacional para esta fase é de, no máximo, 6.000 clientes. Portanto, a soma de todos os clientes aceitos nas diferentes modalidades não pode ultrapassar esse valor.
 
-`x1 + x2 + x3 + x4 + x5 + x6 ≤ 6000`
+    `x1 + x2 + x3 + x4 + x5 + x6 ≤ 6000`
 
-- **Limite de Demanda por Modalidade**: Não podemos aceitar mais clientes para uma modalidade do que o número de propostas que recebemos (conforme a Tabela 1). Isso gera uma restrição para cada tipo de empréstimo:
-`x1 ≤ 1400 (Máximo para Capital de Giro)`
+- **Limite de Demanda por Modalidade:** Não podemos aceitar mais clientes para uma modalidade do que o número de propostas que recebemos (conforme a Tabela 1). Isso gera uma restrição para cada tipo de empréstimo:
 
-`x2 ≤ 600 (Máximo para Cheque Especial)`
+    `x1 ≤ 1400 (Máximo para Capital de Giro)`
 
-`x3 ≤ 1600 (Máximo para Crédito Pessoal)`
+    `x2 ≤ 600 (Máximo para Cheque Especial)`
 
-`x4 ≤ 6000 (Máximo para Crédito Pessoal Consignado)`
+    `x3 ≤ 1600 (Máximo para Crédito Pessoal)`
 
-`x5 ≤ 3400 (Máximo para Financiamento Imobiliário)`
+    `x4 ≤ 6000 (Máximo para Crédito Pessoal Consignado)`
 
-`x6 ≤ 3400 (Máximo para Aquisição de Veículos)`
+    `x5 ≤ 3400 (Máximo para Financiamento Imobiliário)`
 
-- **Limite de Capital Total**: O orçamento total disponível para alocar nos empréstimos nesta fase é de R$ 125.000.000,00.
+    `x6 ≤ 3400 (Máximo para Aquisição de Veículos)`
 
-`18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000`
+- **Limite de Capital Total:** O orçamento total disponível para alocar nos empréstimos nesta fase é de R$ 125.000.000,00.
 
-- **Mínimo de Clientes por Modalidade (Diversificação/Teste)**: Para garantir que tenhamos uma boa taxa de exploração e que ganhemos experiência em todas as linhas de crédito oferecidas, foi definida uma regra de negócio que exige a aceitação de um número mínimo de clientes em cada categoria. Analisando a implementação, parece que esse mínimo foi estabelecido em 400 clientes por modalidade. Isso garante uma amostra mínima para análise de viabilidade de cada produto.
+    `18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000`
 
-`x1 ≥ 400`
+- **Mínimo de Clientes por Modalidade (Diversificação/Teste):** Para garantir que tenhamos uma boa taxa de exploração e que ganhemos experiência em todas as linhas de crédito oferecidas, foi definida uma regra de negócio que exige a aceitação de um número mínimo de clientes em cada categoria. Analisando a implementação, parece que esse mínimo foi estabelecido em 400 clientes por modalidade. Isso garante uma amostra mínima para análise de viabilidade de cada produto.
 
-`x2 ≥ 400`
+    `x1 ≥ 400`
 
-`x3 ≥ 400`
+    `x2 ≥ 400`
 
-`x4 ≥ 400`
+    `x3 ≥ 400`
 
-`x5 ≥ 400`
+    `x4 ≥ 400`
 
-`x6 ≥ 400`
+    `x5 ≥ 400`
+
+    `x6 ≥ 400`
 
 Com essas variáveis, a função objetivo e todas as restrições devidamente definidas, temos um modelo completo de Programação Linear. Agora, podemos usar um solver (como o PuLP, utilizado no código) que implementa o Método Simplex (ou um algoritmo similar) para encontrar os valores de $x1$ a $x6$ que maximizam o lucro total, respeitando todas essas regras impostas.
 
@@ -210,11 +211,160 @@ As restrições (ou constraints) do modelo podem ser visualizados a qualquer mom
 
 <img src="assets/constraints_example.png" alt="Exemplo de visualização das restrições" width="500"/>
 
-### 4.2. Resolvendo o problema com a PuLP
+### 4.2. Configurando um ambiente Jupyter
 
-### 4.3. Análise com sliders
+Para rodar o código, você precisará de um ambiente Jupyter Notebook. Você pode usar o Google Colab ou instalar o Jupyter localmente. Para esse projeto, foi configurado um container de desenvolvimento com Visual Studio Code para facilitar o setup do notebook localmente. Esse container automaticamente instala a versão do Python que foi utilizada na construção do modelo, todas as extensões  além das bibliotecas `ipykernel`, `jupyter` e `pulp`, bibliotecas essas necessárias para rodar o código. Para utilizar o container de desenvolvimento, você precisará do [Docker]((https://www.docker.com/get-started/)) instalado na sua máquina.
 
-### 4.4. Modelo Gráfico
+Ao abrir o projeto no VSCode, você verá uma notificação perguntando se deseja abrir o projeto em um container. Clique em "Reopen in Container". Isso criará um ambiente isolado com todas as dependências necessárias para rodar o código, longe do seu ambiente local e evitando conflitos de versão.
+Após abrir o container, você verá um diretório chamado `notebook` no painel lateral. Dentro dele, você encontrará vários notebooks que contém o código do modelo. Por enquanto, vamos lidar apenas com o `solver.ipynb`, o que contém o código explicado do modelo.
+
+### 4.3. Resolvendo o problema com a PuLP
+
+O problema, com todas as suas regras e objetivos, foi traduzido para código Python usando a biblioteca PuLP.
+
+O código completo está disponível no repositório do projeto, mas vamos ver aqui os principais passos executados no notebook `solver.ipynb` para chegar à resposta.
+
+#### Preparando o Terreno
+
+Antes de mais nada, precisamos garantir que a biblioteca PuLP está disponível no ambiente e importar suas funções:
+
+```python
+# Garante que o PuLP está instalado
+%pip install pulp
+
+# Importa tudo da biblioteca para facilitar o uso
+from pulp import *
+```
+
+#### Montando o Modelo no Código
+
+Com o ambiente pronto, começamos a construir o modelo:
+
+1. **Criando o "esqueleto" do problema:** Indicamos que queremos criar um problema chamado 'Maximizar_Lucro_Modalidades_Credito' e que o objetivo é de maximização (LpMaximize).
+2. **Declarando as variáveis de decisão:** Definimos nossas variáveis x1​ a x6​, que representarão a quantidade de clientes para cada modalidade. Usamos lowBound=0 para garantir que esses números não sejam negativos.
+
+```python
+# Cria o objeto do problema
+modelo = LpProblem('Maximizar_Lucro_Modalidades_Credito', LpMaximize)
+
+# Cria as variáveis de decisão
+x1 = LpVariable('Qnt_Clientes_Capital_de_Giro', lowBound=0)
+x2 = LpVariable('Qnt_Clientes_Cheque_Especial', lowBound=0)
+x3 = LpVariable('Qnt_Clientes_Crédito_Pessoal', lowBound=0)
+x4 = LpVariable('Qnt_Clientes_Crédito_Pessoal_Consignado', lowBound=0)
+x5 = LpVariable('Qnt_Clientes_Financiamento_Imobiliário', lowBound=0)
+x6 = LpVariable('Qnt_Clientes_Aquisição_de_Veículos', lowBound=0)
+```
+
+3. **Adicionando a Função Objetivo:** Escrevemos a expressão matemática do lucro total (calculado como vimos na seção do Modelo) e adicionamos ao modelo.
+
+```python
+# Define a função a ser maximizada (Lucro Total)
+modelo += \
+    (2.13 / 100 * 18_000 * x1) + \
+    (8.16 / 100 * 10_000 * x2) + \
+    (6.43 / 100 * 15_000 * x3) + \
+    (2.36 / 100 * 12_500 * x4) + \
+    (0.81 / 100 * 13_425 * x5) + \
+    (1.86 / 100 * 8_500 * x6), 'Lucro_Total'
+```
+
+4. **Adicionando as Restrições:** Implementamos cada uma das regras de negócio como restrições no modelo.
+    - **Limite máximo total de clientes:**
+
+        ```python
+        MAXIMO_CLIENTES = 6000
+        modelo += x1 + x2 + x3 + x4 + x5 + x6 <= MAXIMO_CLIENTES, 'Total_de_Clientes_Processados'
+        ```
+
+    - **Limite máximo de clientes por modalidade (baseado na demanda):**
+
+        ```python
+        # Usamos um loop para adicionar as restrições de máximo por modalidade
+        for var in [
+            (x1 <= 1400, 'Máximo de clientes para Capital de Giro'),
+            (x2 <= 600, 'Máximo de clientes para Cheque Especial'),
+            (x3 <= 1600, 'Máximo de clientes para Crédito Pessoal'),
+            (x4 <= 6000, 'Máximo de clientes para Crédito Pessoal Consignado'),
+            (x5 <= 3400, 'Máximo de clientes para Financiamento Imobiliário'),
+            (x6 <= 3400, 'Máximo de clientes para Aquisição de Veículos'),
+        ]:
+            modelo += var
+        ```
+
+    - **Limite máximo de capital total:**
+
+        ```python
+        CAPITAL_MAXIMO = 125_000_000
+        modelo += \
+            18_000 * x1 + \
+            10_000 * x2 + \
+            15_000 * x3 + \
+            12_500 * x4 + \
+            13_425 * x5 + \
+            8_500 * x6 <= CAPITAL_MAXIMO, 'Capital_Total_Disponível'
+        ```
+
+    - Mínimo de clientes por modalidade (para diversificação):
+
+        ```python
+        AMOSTRA_MINIMA_POSSIVEL = 400
+        # Usamos outro loop para adicionar as restrições de mínimo por modalidade
+        for var in [
+            (x1 >= AMOSTRA_MINIMA_POSSIVEL, 'Mínimo de clientes de Capital de Giro'),
+            (x2 >= AMOSTRA_MINIMA_POSSIVEL, 'Mínimo de clientes de Cheque Especial'),
+            (x3 >= AMOSTRA_MINIMA_POSSIVEL, 'Mínimo de clientes de Crédito Pessoal'),
+            (x4 >= AMOSTRA_MINIMA_POSSIVEL, 'Mínimo de clientes de Crédito Pessoal Consignado'),
+            (x5 >= AMOSTRA_MINIMA_POSSIVEL, 'Mínimo de clientes de Financiamento Imobiliário'),
+            (x6 >= AMOSTRA_MINIMA_POSSIVEL, 'Mínimo de clientes de Aquisição de Veículos'),
+        ]:
+            modelo += var
+        ```
+
+#### Encontrando a Solução e Vendo os Resultados
+
+Com o modelo completamente definido no código, o passo final é pedir para a PuLP resolvê-lo e, em seguida, visualizar os resultados encontrados:
+
+1. **Resolvendo o modelo:** Um comando simples dispara o processo de otimização. O msg=False é só para evitar mensagens detalhadas do solver na saída.
+
+    ```python
+    # Pede para o PuLP/CBC encontrar a solução ótima
+    modelo.solve(PULP_CBC_CMD(msg=False))
+    # A saída '1' indica que uma solução ótima foi encontrada
+    ```
+
+2. **Visualizando os resultados:** Verificamos os valores ótimos que o solver encontrou para cada uma das nossas variáveis (x1​ a x6​) e o valor máximo da função objetivo (o lucro total).
+
+    ```python
+    # Imprime os valores ótimos encontrados para cada variável
+    print(f"Clientes de Capital de Giro (x1): {x1.varValue}")
+    print(f"Clientes de Cheque Especial (x2): {x2.varValue}")
+    print(f"Clientes de Crédito Pessoal (x3): {x3.varValue}")
+    print(f"Clientes de Crédito Pessoal Consignado (x4): {x4.varValue}")
+    print(f"Clientes de Financiamento Imobiliário (x5): {x5.varValue}")
+    print(f"Clientes de Aquisição de Veículos (x6): {x6.varValue}")
+
+    # Imprime o valor máximo da função objetivo (Lucro Total)
+    print(f"Lucro Total: {modelo.objective.value()}")
+    ```
+
+**Saída dos Resultados:**
+
+```
+Clientes de Capital de Giro (x1): 1400.0
+Clientes de Cheque Especial (x2): 600.0
+Clientes de Crédito Pessoal (x3): 1600.0
+Clientes de Crédito Pessoal Consignado (x4): 1600.0
+Clientes de Financiamento Imobiliário (x5): 400.0
+Clientes de Aquisição de Veículos (x6): 400.0
+Lucro Total: 3148297.0
+```
+
+E assim, seguindo esses passos no código, conseguimos usar a PuLP para encontrar a combinação ideal de clientes por modalidade que maximiza o lucro da AutoProvision, respeitando todas as limitações definidas para esta fase inicial do projeto.
+
+### 4.4. Análise com sliders
+
+### 4.5. Modelo Gráfico
 
 ## 7. Referências
 
