@@ -117,7 +117,7 @@ O objetivo principal é claro: maximizar o lucro total esperado. Para construir 
 
 O lucro total, que queremos maximizar, será a soma do lucro obtido com todos os clientes aceitos em cada modalidade. Matematicamente, nossa função objetivo é:
 
-`Maximizar Lucro = Lucro $x1$ + Lucro $x2$ + Lucro $x3$ + Lucro $x4$ + Lucro $x5$ + Lucro $x6$`
+`Maximizar Lucro = Lucro x1 + Lucro x2 + Lucro x3 + Lucro x4 + Lucro x5 + Lucro x6`
 
 ### 3.3. Restrições
 
@@ -125,24 +125,24 @@ Agora, precisamos definir as limitações e regras que a AutoProvision precisa s
 
 - **Limite Total de Clientes**: A capacidade operacional para esta fase é de, no máximo, 6.000 clientes. Portanto, a soma de todos os clientes aceitos nas diferentes modalidades não pode ultrapassar esse valor.
 
-`$x1 + x2 + x3 + x4 + x5 + x6 ≤ 6000$`
+`x1 + x2 + x3 + x4 + x5 + x6 ≤ 6000`
 
 - **Limite de Demanda por Modalidade**: Não podemos aceitar mais clientes para uma modalidade do que o número de propostas que recebemos (conforme a Tabela 1). Isso gera uma restrição para cada tipo de empréstimo:
-`$x1 ≤ 1400$ (Máximo para Capital de Giro)`
+`x1 ≤ 1400 (Máximo para Capital de Giro)`
 
-`$x2 ≤ 600$ (Máximo para Cheque Especial)`
+`x2 ≤ 600 (Máximo para Cheque Especial)`
 
-`$x3 ≤ 1600$ (Máximo para Crédito Pessoal)`
+`x3 ≤ 1600 (Máximo para Crédito Pessoal)`
 
-`$x4 ≤ 6000$ (Máximo para Crédito Pessoal Consignado)`
+`x4 ≤ 6000 (Máximo para Crédito Pessoal Consignado)`
 
-`$x5 ≤ 3400$ (Máximo para Financiamento Imobiliário)`
+`x5 ≤ 3400 (Máximo para Financiamento Imobiliário)`
 
-`$x6 ≤ 3400$ (Máximo para Aquisição de Veículos)`
+`x6 ≤ 3400 (Máximo para Aquisição de Veículos)`
 
 - **Limite de Capital Total**: O orçamento total disponível para alocar nos empréstimos nesta fase é de R$ 125.000.000,00.
 
-`$18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000$`
+`18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000`
 
 - **Mínimo de Clientes por Modalidade (Diversificação/Teste)**: Para garantir que tenhamos uma boa taxa de exploração e que ganhemos experiência em todas as linhas de crédito oferecidas, foi definida uma regra de negócio que exige a aceitação de um número mínimo de clientes em cada categoria. Analisando a implementação, parece que esse mínimo foi estabelecido em 400 clientes por modalidade. Isso garante uma amostra mínima para análise de viabilidade de cada produto.
 
