@@ -11,8 +11,6 @@ Project phased implementation involves determining the optimal way to implement 
   - `graphic-solver.ipynb`: Visual representation of the solution process
   - `sliders-solver.ipynb`: Interactive solver with slider controls
   - `solver.ipynb`: Core implementation of the Simplex Method
-- `resources/`: Supporting data files
-  - `solver-data.xlsx`: Excel file with problem data
 - `article`: Contains the article related files
 
 ## Development Environment

@@ -12,9 +12,8 @@
 		"vscode": {
 			"extensions": [
 				"ms-azuretools.vscode-docker",
-				"ms-python.python",
 				"ms-toolsai.jupyter",
-				"GrapeCity.gc-excelviewer"
+				"ms-python.python"
 			]
 		}
 	},
