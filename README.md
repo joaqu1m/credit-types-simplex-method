@@ -1,10 +1,10 @@
-# Phased Implementation Simplex Method
+# Credit Types Simplex Method
 
 ## Overview
-This project demonstrates how to model and solve "project phased implementation" as a Linear Programming (LP) problem using the Simplex Method/Algorithm, which is a powerful technique for solving linear optimization problems.
+This project demonstrates how to model and solve a credit types choosing problem as a Linear Programming (LP) problem using the Simplex Method/Algorithm, which is a powerful technique for solving linear optimization problems.
 
 ## Problem Description
-Project phased implementation involves determining the optimal way to implement project phases while considering various constraints such as resources, budget, and time. By formulating this as a linear programming problem, we can find the optimal solution that maximizes benefits or minimizes costs.
+A credit types problem involves determining the optimal way to choose customers from different types of credit while considering various constraints such as resources, budget, and time. By formulating this as a linear programming problem, we can find the optimal solution that maximizes benefits or minimizes costs.
 
 ## Project Structure
 - `notebook/`: Contains Jupyter notebooks with different solver implementations
