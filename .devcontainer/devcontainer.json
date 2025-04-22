@@ -12,7 +12,6 @@
 		"vscode": {
 			"extensions": [
 				"ms-azuretools.vscode-docker",
-				"yzhang.markdown-all-in-one",
 				"ms-toolsai.jupyter",
 				"ms-python.python"
 			]

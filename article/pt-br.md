@@ -2,27 +2,38 @@
 
 ## Sumário
 
-- [Resumo](#resumo)
+- [Sumário](#sumário)
 
-- [Introdução](#1-introdução)
+- [0. Resumo](#resumo)
 
-- [Problema](#2-problema)
+- [1. Introdução](#1-introdução)
+    - [1.1. O que é o método Simplex?](#11-o-que-é-o-método-simplex)
+    - [1.2. Por que escolhi utilizar o Método Simplex?](#12-por-que-escolhi-utilizar-o-método-simplex)
 
-- [Modelo](#3-modelo)
+- [2. Problema](#2-problema)
+    - [2.1. Otimizando a Carteira de Crédito Inicial da AutoProvision](#21-otimizando-a-carteira-de-crédito-inicial-da-autoprovision)
 
-- [Aplicação Prática](#4-aplicação-prática)
+- [3. Modelo](#3-modelo)
+    - [3.1. Variáveis](#31-variáveis)
+    - [3.2. Função Objetivo](#32-função-objetivo)
+    - [3.3. Restrições](#33-restrições)
 
-- [Resultados](#5-resultados)
+- [4. Aplicação Prática](#4-aplicação-prática)
+    - [4.1. Como o PuLP funciona?](#41-como-o-pulp-funciona)
+    - [4.2. Configurando um ambiente Jupyter](#42-configurando-um-ambiente-jupyter)
+    - [4.3. Resolvendo o problema com o PuLP](#43-resolvendo-o-problema-com-o-pulp)
+    - [4.4. Análise com sliders](#44-análise-com-sliders)
+    - [4.5. Representação gráfica](#45-representação-gráfica)
 
-- [Conclusão](#6-conclusão)
+- [5. Resultados](#5-resultados)
 
-- [Referências](#7-referências)
+- [6. Conclusão](#6-conclusão)
 
-## Resumo - Retomarei depois
+- [7. Referências](#7-referências)
 
-O artigo apresenta um modelo de programação linear (LP) que visa maximizar o lucro total de uma empresa, considerando a implementação gradual de um novo produto. O modelo é baseado em um problema de alocação de recursos, onde o objetivo é determinar a quantidade de cada tipo de cliente a ser atendido a cada 4 meses, levando em conta as restrições de capacidade e demanda.
-O modelo é resolvido utilizando o método Simplex, uma técnica amplamente utilizada em programação linear. O artigo também discute a aplicação prática do modelo, incluindo a análise de resultados e a interpretação dos dados obtidos.
-O objetivo desse problema é determinar a quantidade de cada tipo de cliente a ser atendido a cada 4 meses, de um modo que tentamos maximizar o lucro total enquanto buscamos descobrir o potencial de todos os recursos disponíveis.
+## Resumo
+
+O artigo aborda o caso fictício da empresa AutoProvision. O objetivo principal é determinar a melhor combinação de clientes entre diferentes modalidades de crédito (Capital de Giro, Cheque Especial, Crédito Pessoal, etc.) para maximizar o lucro esperado durante uma fase inicial de implementação gradual do projeto. Para isso, utilizamos a Programação Linear, modelando o problema com variáveis de decisão (quantidade de clientes por modalidade), uma função objetivo (maximizar lucro total) e restrições (limites de capital, capacidade total de clientes, demanda por modalidade e um mínimo para diversificação). O modelo foi implementado em Python com a biblioteca PuLP e resolvido usando o Método Simplex. Os resultados definem a alocação ótima de clientes para cada linha de crédito neste primeiro ciclo, resultando em um plano de ação baseado em dados para o início das operações da AutoProvision, além de servir como base para futuras análises e ajustes conforme o negócio evolui. O trabalho também demonstra a aplicação prática de ferramentas de otimização em um contexto de negócios, incluindo a visualização e análise dos resultados.
 
 ## 1. Introdução
 
@@ -222,7 +233,7 @@ Após abrir o container, você verá um diretório chamado `notebook` no painel 
 
 O problema, com todas as suas regras e objetivos, foi traduzido para código Python usando a biblioteca PuLP.
 
-O código completo está disponível no repositório do projeto, mas vamos ver aqui os principais passos executados no notebook `solver.ipynb` para chegar à resposta.
+O código completo está disponível no [repositório](https://github.com/joaqu1m/credit-types-simplex-method) do projeto, mas vamos ver aqui os principais passos executados no notebook `solver.ipynb` para chegar à resposta.
 
 #### Preparando o Terreno
 
@@ -514,6 +525,7 @@ Por fim, é importante lembrar que este modelo representa o ponto de partida. O 
 
 ## 7. Referências
 
+- [Credit Types Simplex Methods Notebooks](https://github.com/joaqu1m/credit-types-simplex-method).
 - [Simplex Algorithm - Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
 - [COIN-OR Foundation - Computational Infrastructure for Operations Research](https://www.coin-or.org/).
 - [Optimization with PuLP - Documentação do PuLP](https://coin-or.github.io/pulp/).
