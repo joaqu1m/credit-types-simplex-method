@@ -500,6 +500,18 @@ Este primeiro ciclo servirá não apenas para gerar o lucro previsto, mas també
 
 ## 6. Conclusão
 
+Esse artigo demonstrou como uma ferramenta clássica da Pesquisa Operacional, o Método Simplex, pode ser aplicada de forma prática para resolver um desafio comum em negócios: como iniciar uma nova operação de forma gradual e otimizada.
+
+O problema central que resolvemos foi o da empresa fictícia AutoProvision, que precisava decidir a melhor combinação de clientes de diferentes modalidades de crédito para atender em sua fase inicial, com o objetivo de maximizar o lucro, mas considerando as limitações importantes de capital total, capacidade de atendimento, demanda específica por produto e a necessidade de diversificar sua atuação.
+
+A Programação Linear ofereceu uma boa estrutura matemática para modelar esse cenário. Definimos as variáveis de decisão (quantidade de clientes por modalidade), a função objetivo (maximizar o lucro total calculado a partir das taxas e capital médio) e as restrições (limites de capital, clientes, demanda e diversificação).
+
+Utilizando a biblioteca PuLP em Python, traduzimos esse modelo matemático para um código executável. Foi aplicado o algoritmo Simplex para encontrar a solução ótima. Os resultados indicaram precisamente quantos clientes de cada modalidade a AutoProvision deveria buscar neste primeiro ciclo para atingir o lucro máximo possível dentro das regras estabelecidas, utilizando toda a capacidade operacional definida.
+
+A principal contribuição deste trabalho é mostrar que a otimização não precisa ser um conceito abstrato ou restrito a grandes indústrias. Ferramentas acessíveis como o PuLP permitem que mesmo cenários de negócios mais simples, como a implementação faseada de um serviço, possam se beneficiar de uma abordagem baseada em dados para tomar decisões mais eficientes e potencialmente mais lucrativas. Além da solução principal, exploramos como ferramentas interativas (sliders) e visualizações gráficas podem enriquecer a análise e o entendimento do modelo.
+
+Por fim, é importante lembrar que este modelo representa o ponto de partida. O verdadeiro valor se concretizará ao longo do tempo, à medida que a AutoProvision coletar dados reais de sua operação. Esses dados permitirão refinar as estimativas de lucro, ajustar as restrições e, quem sabe, até mesmo adaptar o objetivo. A aplicação do Simplex forneceu um plano inicial robusto e otimizado, mas a melhoria contínua será chave para o sucesso a longo prazo.
+
 ## 7. Referências
 
 - [Simplex Algorithm - Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
