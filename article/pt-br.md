@@ -2,8 +2,6 @@
 
 ## Sumário
 
-- [Sumário](#sumário)
-
 - [0. Resumo](#resumo)
 
 - [1. Introdução](#1-introdução)
