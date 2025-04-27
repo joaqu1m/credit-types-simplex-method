@@ -41,7 +41,7 @@ O artigo aborda o caso fictício da empresa AutoProvision. O objetivo principal 
 
 No dia a dia de muitas áreas técnicas, como logística, produção, finanças ou engenharia, frequentemente precisamos tomar decisões para usar nossos recursos da melhor forma possível. Pense em definir as melhores rotas de entrega para economizar combustível, organizar a produção em uma fábrica para maximizar a quantidade de produtos, ou escolher investimentos para obter o maior retorno. Basicamente, estamos falando de otimização: encontrar a melhor solução (seja o máximo de algo bom ou o mínimo de algo ruim) dentro de certas regras ou limitações que temos.
 
-Muitos desses problemas se encaixam em uma categoria chamada Programação Linear (PL). A ideia é relativamente simples: são problemas onde tanto o objetivo que você quer alcançar (ex: maximizar lucro) quanto as limitações que você enfrenta (ex: orçamento disponível, horas de trabalho) podem ser descritos usando equações ou inequações lineares – são relações diretas, sem potências ou multiplicações entre as variáveis. Mesmo parecendo simples, a PL é uma ferramenta poderosa para representar e resolver muitas situações práticas.
+Muitos desses problemas se encaixam em uma categoria chamada Programação Linear (PL). A ideia é relativamente simples: são problemas onde tanto o objetivo que você quer alcançar (ex: maximizar lucro) quanto as limitações que você enfrenta (ex: orçamento disponível, horas de trabalho) podem ser descritos usando equações ou inequações lineares – são relações diretas, sem potências ou multiplicações entre as variáveis. Apesar de parecerem simples, a PL é uma ferramenta poderosa para representar e resolver muitas situações práticas.
 
 <img src="assets/lp_prob.webp" alt="Problema de programação linear em notação matemática" width="400"/>
 
@@ -49,7 +49,7 @@ E como resolvemos esses problemas de Programação Linear? Uma das ferramentas m
 
 <img src="assets/simplex.png" alt="Um sistema de inequações lineares" width="400" style="background: white;" />
 
-Para utilizar o algoritmo Simplex no contexto da programação, você precisa de um software que implemente esse algoritmo. Existem várias opções disponíveis, desde ferramentas comerciais até bibliotecas de código aberto. Uma das mais populares e acessíveis é o PuLP, a biblioteca Python que estaremos utilizando em um ambiente de Jupyter Notebook.
+Para utilizar o algoritmo Simplex no contexto da programação, você precisa de um software que implementa esse algoritmo. Existem várias opções disponíveis, desde ferramentas comerciais até bibliotecas de código aberto. Uma das mais populares e acessíveis é o PuLP, a biblioteca Python que estaremos utilizando em um ambiente de Jupyter Notebook.
 
 O PuLP é uma biblioteca Python gratuita e de código aberto criada especificamente para modelar problemas de programação linear (e também programação inteira, uma variação). Ele foi desenvolvido inicialmente pela COIN-OR Foundation e outros colaboradores, com o trabalho começando em meados dos anos 2000, e hoje faz parte do ecossistema COIN-OR (Computational Infrastructure for Operations Research), uma iniciativa que reúne diversas ferramentas de pesquisa operacional. A ideia principal por trás do PuLP não é reimplementar o algoritmo Simplex do zero, mas sim fornecer uma interface amigável em Python para que você possa descrever o seu problema de otimização.
 
@@ -67,7 +67,7 @@ Em resumo, o PuLP atua como uma ponte inteligente: ele permite que você use a s
 
 ### 1.2. Por que escolhi utilizar o Método Simplex?
 
-A escolha veio de uma combinação de aprendizado e necessidade prática. Essa decisão foi tomada durante as aulas de Pesquisa Operacional na faculdade. Estávamos aprendendo sobre essa específica técnica de otimização, e o Simplex foi apresentado como uma ferramenta poderosa para resolver problemas de programação linear. A professora, então, nos desafiou a aplicar esse método em nossos projetos de pesquisa e inovação que já estavam em andamento.
+A escolha veio de uma combinação de aprendizado e necessidade prática. Essa decisão foi tomada durante as aulas de Pesquisa Operacional na faculdade. Estávamos aprendendo sobre esta específica técnica de otimização, e o Simplex foi apresentado como uma ferramenta poderosa para resolver problemas de programação linear. A professora, então, nos desafiou a aplicar esse método em nossos projetos de pesquisa e inovação que já estavam em andamento.
 
 Meu projeto está ligado à área de empréstimos e crédito. Quando surgiu a necessidade de planejar uma implementação gradual do projeto, percebemos que precisaríamos de bastante capital e, para isso, teríamos que decidir quais modalidades de crédito seriam mais vantajosas para captar ou gerenciar. Tínhamos à disposição diversas opções, como capital de giro, crédito pessoal, financiamento imobiliário, entre outras, cada uma com suas características distintas de taxas de juros, volume de propostas prévias (feitas pelo formulário de captação inicial), e capital médio envolvido.
 
@@ -111,7 +111,7 @@ O coração do problema é decidir quantos clientes vamos aceitar para cada uma 
 - $x5$: Número de clientes aceitos para Financiamento Imobiliário
 - $x6$: Número de clientes aceitos para Aquisição de Veículos
 
-É importante notar que esses valores não podem ser negativos, então todos eles devem ser maiores ou iguais a zero ($xi ≥0$). O objetivo do Simplex será encontrar os valores ideais para $x1 $, $x2 $, ... , $x6 $.
+É importante notar que esses valores não podem ser negativos, então todos eles devem ser maiores ou iguais a zero ($xi ≥0$). O objetivo do Simplex será encontrar os valores ideais para $x1$, $x2$, ... , $x6$.
 
 ### 3.2. Função Objetivo
 
@@ -218,13 +218,13 @@ O uso do <= (ou >=, ==) é o sinal para o PuLP. A biblioteca usa a "mágica" da 
 
 Essa restrição completa é adicionada à lista de regras do modelo. O solver, quando chamado pelo comando modelo.solve(), receberá todas essas restrições e terá que encontrar uma solução que respeite todas elas, ao mesmo tempo que otimiza a função objetivo.
 
-As restrições (ou constraints) do modelo podem ser visualizados a qualquer momento com os atributos `modelo.constraints` ou `modelo.coefficients` (coeficientes são os pesos atribuídos à cada variável usada na constraint); Como no exemplo:
+As restrições (ou constraints) do modelo podem ser visualizadas a qualquer momento com os atributos `modelo.constraints` ou `modelo.coefficients` (coeficientes são os pesos atribuídos à cada variável usada na constraint); Como no exemplo:
 
 <img src="assets/constraints_example.png" alt="Exemplo de visualização das restrições" width="500"/>
 
 ### 4.2. Configurando um ambiente Jupyter
 
-Para rodar o código, você precisará de um ambiente Jupyter Notebook. Você pode usar o Google Colab ou instalar o Jupyter localmente. Para esse projeto, foi configurado um container de desenvolvimento com Visual Studio Code para facilitar o setup do notebook localmente. Esse container automaticamente instala a versão do Python que foi utilizada na construção do modelo, todas as extensões  além das bibliotecas `ipykernel`, `jupyter` e `pulp`, bibliotecas essas necessárias para rodar o código. Para utilizar o container de desenvolvimento, você precisará do [Docker]((https://www.docker.com/get-started/)) instalado na sua máquina.
+Para rodar o código, você precisará de um ambiente Jupyter Notebook. Você pode usar o Google Colab ou instalar o Jupyter localmente. Para esse projeto, foi configurado um container de desenvolvimento com Visual Studio Code para facilitar o setup do notebook localmente. Esse container automaticamente instala a versão do Python que foi utilizada na construção do modelo, todas as extensões além das bibliotecas `ipykernel`, `jupyter` e `pulp`, bibliotecas essas necessárias para rodar o código. Para utilizar o container de desenvolvimento, você precisará do [Docker](https://www.docker.com/get-started/) instalado na sua máquina.
 
 Ao abrir o projeto no VSCode, você verá uma notificação perguntando se deseja abrir o projeto em um container. Clique em "Reopen in Container". Isso criará um ambiente isolado com todas as dependências necessárias para rodar o código, longe do seu ambiente local e evitando conflitos de versão.
 Após abrir o container, você verá um diretório chamado `notebook` no painel lateral. Dentro dele, você encontrará vários notebooks que contém o código do modelo. Por enquanto, vamos lidar apenas com o `solver.ipynb`, o que contém o código explicado do modelo.
@@ -501,7 +501,7 @@ Esses números nos oferecem insights valiosos sobre como devemos direcionar noss
 
 2. **Modalidades no Limite Mínimo:** Por outro lado, Financiamento Imobiliário e Aquisição de Veículos ficaram no piso mínimo de 400 clientes estabelecido como regra de negócio para manter a diversificação e o aprendizado em todas as linhas. Isso indica que, caso o foco desse ciclo fosse a maximização do lucro, essas modalidades seriam menos prioritárias. A restrição mínima com certeza foi o motivo para garantir que elas fossem incluídas na carteira inicial.
 
-3. **Capital de Giro e Cheque Especial:** Essas modalidades tiveram resultados mais específicos; Não atingiram seu limite máximo de demanda (que era 1600), mas ficaram acima do mínimo de 400. Isso mostra que o modelo está corretamente aplicando restrições de forma bastante específica, com restrições fazendo efeito além das mais exigentes (quantidade mínima e máxima).
+3. **Capital de Giro e Cheque Especial:** Essas modalidades tiveram resultados mais específicos; não atingiram seu limite máximo de demanda (que era 1600), mas ficaram acima do mínimo de 400. Isso mostra que o modelo está corretamente aplicando restrições de forma bastante específica, com restrições fazendo efeito além das mais exigentes (quantidade mínima e máxima).
 
 ### Próximos Passos na Implementação Gradual
 
