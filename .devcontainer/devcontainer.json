@@ -1,5 +1,5 @@
 {
-	"name": "phased-implementation-simplex-method",
+	"name": "credit-types-simplex-method",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "devcontainer",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",

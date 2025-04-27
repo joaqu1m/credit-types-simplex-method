@@ -1,8 +1,8 @@
-name: phased-implementation-simplex-method
+name: credit-types-simplex-method
 version: '3.8'
 services:
   devcontainer:
-    container_name: phased-implementation-simplex-method
+    container_name: credit-types-simplex-method
     build:
       context: .
       dockerfile: Dockerfile
