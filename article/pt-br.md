@@ -218,7 +218,7 @@ O uso do <= (ou >=, ==) é o sinal para o PuLP. A biblioteca usa a "mágica" da 
 
 Essa restrição completa é adicionada à lista de regras do modelo. O solver, quando chamado pelo comando modelo.solve(), receberá todas essas restrições e terá que encontrar uma solução que respeite todas elas, ao mesmo tempo que otimiza a função objetivo.
 
-As restrições (ou constraints) do modelo podem ser visualizadas a qualquer momento com os atributos `modelo.constraints` ou `modelo.coefficients` (coeficientes são os pesos atribuídos à cada variável usada na constraint); Como no exemplo:
+As restrições (ou constraints) do modelo podem ser visualizadas a qualquer momento com os atributos `modelo.constraints` ou `modelo.coefficients` (coeficientes são os pesos atribuídos a cada variável usada na constraint); Como no exemplo:
 
 <img src="assets/constraints_example.png" alt="Exemplo de visualização das restrições" width="500"/>
 
@@ -227,7 +227,7 @@ As restrições (ou constraints) do modelo podem ser visualizadas a qualquer mom
 Para rodar o código, você precisará de um ambiente Jupyter Notebook. Você pode usar o Google Colab ou instalar o Jupyter localmente. Para esse projeto, foi configurado um container de desenvolvimento com Visual Studio Code para facilitar o setup do notebook localmente. Esse container automaticamente instala a versão do Python que foi utilizada na construção do modelo, todas as extensões além das bibliotecas `ipykernel`, `jupyter` e `pulp`, bibliotecas essas necessárias para rodar o código. Para utilizar o container de desenvolvimento, você precisará do [Docker](https://www.docker.com/get-started/) instalado na sua máquina.
 
 Ao abrir o projeto no VSCode, você verá uma notificação perguntando se deseja abrir o projeto em um container. Clique em "Reopen in Container". Isso criará um ambiente isolado com todas as dependências necessárias para rodar o código, longe do seu ambiente local e evitando conflitos de versão.
-Após abrir o container, você verá um diretório chamado `notebook` no painel lateral. Dentro dele, você encontrará vários notebooks que contém o código do modelo. Por enquanto, vamos lidar apenas com o `solver.ipynb`, o que contém o código explicado do modelo.
+Após abrir o container, você verá um diretório chamado `notebook` no painel lateral. Dentro dele, você encontrará vários notebooks que contêm o código do modelo. Por enquanto, vamos lidar apenas com o `solver.ipynb`, o que contém o código explicado do modelo.
 
 ### 4.3. Resolvendo o problema com o PuLP
 
@@ -495,13 +495,16 @@ Com essa distribuição de clientes, o Lucro Total máximo estimado para o prime
 
 ### Análise dos Resultados e Implicações para o Negócio
 
-Esses números nos oferecem insights valiosos sobre como devemos direcionar nossos esforços e recursos neste início de operação:
+Esses números nos oferecem alguns insights sobre como devemos direcionar nossos esforços e recursos neste início de operação:
 
-1. **Modalidades no Limite da Demanda:** As modalidades de Crédito Pessoal e Crédito Pessoal Consignado atingiram exatamente o número máximo de propostas recebidas que definimos como limite superior. Isso sugere que, dentro das restrições atuais (especialmente de capital e capacidade total), essas são as modalidades mais atrativas do ponto de vista do lucro gerado por cliente ou pela combinação de lucro e uso de capital.
+1. **Modalidades no Limite da Demanda:** As modalidades de Capital de Giro, Cheque Especial e Crédito Pessoal atingiram exatamente o número máximo de propostas recebidas que definimos como limite superior. Isso sugere que, dentro das restrições atuais (especialmente de capital e capacidade total), essas são as modalidades mais atrativas do ponto de vista do lucro gerado por cliente ou pela combinação de lucro e uso de capital.
 
 2. **Modalidades no Limite Mínimo:** Por outro lado, Financiamento Imobiliário e Aquisição de Veículos ficaram no piso mínimo de 400 clientes estabelecido como regra de negócio para manter a diversificação e o aprendizado em todas as linhas. Isso indica que, caso o foco desse ciclo fosse a maximização do lucro, essas modalidades seriam menos prioritárias. A restrição mínima com certeza foi o motivo para garantir que elas fossem incluídas na carteira inicial.
 
-3. **Capital de Giro e Cheque Especial:** Essas modalidades tiveram resultados mais específicos; não atingiram seu limite máximo de demanda (que era 1600), mas ficaram acima do mínimo de 400. Isso mostra que o modelo está corretamente aplicando restrições de forma bastante específica, com restrições fazendo efeito além das mais exigentes (quantidade mínima e máxima).
+3. **Crédito Pessoal Consignado:** Esta modalidade teve um resultado distinto, indicando que o modelo, considerando todos os parâmetros, optou por uma estratégia relativamente simples:
+    - Aceitar o máximo de clientes possível para as modalidades mais lucrativas;
+    - Aceitar o mínimo de clientes possível para as modalidades menos lucrativas;
+    - Aceitar o máximo de clientes possível para a quarta modalidade mais lucrativa (Crédito Pessoal Consignado), respeitando todas as restrições existentes, como demanda, número total de clientes, capital total, e as próprias restrições especificas da modalidade.
 
 ### Próximos Passos na Implementação Gradual
 
