@@ -31,7 +31,14 @@
 
 ## Resumo
 
-O artigo aborda o caso fictício da empresa AutoProvision. O objetivo principal é determinar a melhor combinação de clientes entre diferentes modalidades de crédito (Capital de Giro, Cheque Especial, Crédito Pessoal, etc.) para maximizar o lucro esperado durante uma fase inicial de implementação gradual do projeto. Para isso, utilizamos a Programação Linear, modelando o problema com variáveis de decisão (quantidade de clientes por modalidade), uma função objetivo (maximizar lucro total) e restrições (limites de capital, capacidade total de clientes, demanda por modalidade e um mínimo para diversificação). O modelo foi implementado em Python com a biblioteca PuLP e resolvido usando o Método Simplex. Os resultados definem a alocação ótima de clientes para cada linha de crédito neste primeiro ciclo, resultando em um plano de ação baseado em dados para o início das operações da AutoProvision, além de servir como base para futuras análises e ajustes conforme o negócio evolui. O trabalho demonstra a aplicação prática de ferramentas de otimização em um contexto de negócios, incluindo a visualização e análise dos resultados.
+O artigo aborda o caso fictício da empresa AutoProvision. O objetivo principal é determinar a melhor combinação de clientes entre diferentes modalidades de crédito (Capital de Giro, Cheque Especial, Crédito Pessoal, etc.) para maximizar o lucro esperado durante uma fase inicial de implementação gradual do projeto.
+Para isso, utilizamos a Programação Linear, modelando o problema com variáveis de decisão (quantidade de clientes por modalidade), uma função objetivo (maximizar lucro total) e restrições (limites de capital, capacidade total de clientes, demanda por modalidade e um mínimo para diversificação).
+O modelo foi implementado em Python com a biblioteca PuLP e resolvido usando o Método Simplex. Os resultados definem a alocação ótima de clientes para cada linha de crédito neste primeiro ciclo, resultando em um plano de ação baseado em dados para o início das operações da AutoProvision, além de servir como base para futuras análises e ajustes conforme o negócio evolui.
+O trabalho demonstra a aplicação prática de ferramentas de otimização em um contexto de negócios, incluindo a visualização e análise dos resultados.
+
+### Palavras-chave
+
+Método Simplex. Otimização. Programação Linear. Pesquisa Operacional. Modalidades de Crédito. Carteira de Crédito. Gestão de Risco. Implementação Gradual. PuLP (Biblioteca Python). Python (Linguagem de Programação). Tomada de Decisão Baseada em Dados. Modelo Matemático. Análise de Sensibilidade. Finanças. Jupyter Notebook. Capital de Giro. Cheque Especial. Crédito Pessoal. Crédito Pessoal Consignado. Financiamento Imobiliário. Aquisição de Veículos.
 
 ## 1. Introdução
 
@@ -41,11 +48,11 @@ No dia a dia de muitas áreas técnicas, como logística, produção, finanças 
 
 Muitos desses problemas se encaixam em uma categoria chamada Programação Linear (PL). A ideia é relativamente simples: são problemas onde tanto o objetivo que você quer alcançar (ex: maximizar lucro) quanto as limitações que você enfrenta (ex: orçamento disponível, horas de trabalho) podem ser descritos usando equações ou inequações lineares – são relações diretas, sem potências ou multiplicações entre as variáveis. Apesar de parecerem simples, a PL é uma ferramenta poderosa para representar e resolver muitas situações práticas.
 
-<img src="assets/lp_prob.webp" alt="Problema de programação linear em notação matemática" width="400"/>
+<img src="assets/lp_prob.webp" alt="Um sistema de equações lineares" width="400"/>
 
 E como resolvemos esses problemas de Programação Linear? Uma das ferramentas mais conhecidas e fundamentais para isso é o Método Simplex. Criado por George Dantzig nos anos 40, o Simplex é, essencialmente, um algoritmo, uma receita passo a passo. Imagine que todas as soluções possíveis que respeitam suas limitações formam uma espécie de "região" geométrica com cantos bem definidos. O Método Simplex funciona de forma iterativa: ele começa em um desses cantos (uma solução inicial válida) e vai "pulando" para cantos vizinhos, sempre buscando um que melhore o resultado do seu objetivo (mais lucro, menos custo, etc.). Ele continua fazendo isso até encontrar um canto onde não há mais para onde ir para melhorar – esse é o ponto ótimo, a melhor resposta para o seu problema.
 
-<img src="assets/simplex.png" alt="Um sistema de inequações lineares" width="400" style="background: white;" />
+<img src="assets/simplex.png" alt="O método Simplex em ação" width="400" style="background: white;" />
 
 Para utilizar o algoritmo Simplex no contexto da programação, você precisa de um software que implementa esse algoritmo. Existem várias opções disponíveis, desde ferramentas comerciais até bibliotecas de código aberto. Uma das mais populares e acessíveis é o PuLP, a biblioteca Python que estaremos utilizando em um ambiente de Jupyter Notebook.
 

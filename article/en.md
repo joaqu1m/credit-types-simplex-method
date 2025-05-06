@@ -31,7 +31,14 @@
 
 ## Abstract
 
-The article addresses the fictional case of the company AutoProvision. The main goal is to determine the best combination of clients across different credit modalities (Working Capital, Overdraft, Personal Loan, etc.) to maximize expected profit during an initial phase of gradual project implementation. For this, we use Linear Programming, modeling the problem with decision variables (number of clients per modality), an objective function (maximize total profit), and constraints (capital limits, total client capacity, demand per modality, and a minimum for diversification). The model was implemented in Python using the PuLP library and solved using the Simplex Method. The results define the optimal allocation of clients for each credit line in this first cycle, resulting in a data-driven action plan for the start of AutoProvision's operations, as well as serving as a basis for future analyses and adjustments as the business evolves. The work demonstrates the practical application of optimization tools in a business context, including visualization and analysis of the results.
+The article addresses the fictional case of the company AutoProvision. The main goal is to determine the best combination of clients across different credit modalities (Working Capital, Overdraft, Personal Loan, etc.) to maximize expected profit during an initial phase of gradual project implementation.
+For this, we use Linear Programming, modeling the problem with decision variables (number of clients per modality), an objective function (maximize total profit), and constraints (capital limits, total client capacity, demand per modality, and a minimum for diversification).
+The model was implemented in Python using the PuLP library and solved using the Simplex Method. The results define the optimal allocation of clients for each credit line in this first cycle, resulting in a data-driven action plan for the start of AutoProvision's operations, as well as serving as a basis for future analyses and adjustments as the business evolves.
+The work demonstrates the practical application of optimization tools in a business context, including visualization and analysis of the results.
+
+### Keywords
+
+Simplex Method. Optimization. Linear Programming. Operations Research. Credit Modalities. Credit Portfolio. Risk Management. Gradual Implementation. PuLP (Python Library). Python (Programming Language). Data-Driven Decision Making. Mathematical Model. Sensitivity Analysis. Finance. Jupyter Notebook. Working Capital. Overdraft. Personal Loan. Payroll Loan. Mortgage Loan.
 
 ## 1. Introduction
 
@@ -41,11 +48,11 @@ In the daily routine of many technical areas, such as logistics, production, fin
 
 Many of these problems fit into a category called Linear Programming (LP). The idea is relatively simple: these are problems where both the objective you want to achieve (e.g., maximize profit) and the limitations you face (e.g., available budget, working hours) can be described using linear equations or inequalities – they are direct relationships, without powers or multiplications between variables. Although they seem simple, LP is a powerful tool for representing and solving many practical situations.
 
-<img src="assets/lp_prob.webp" alt="Linear programming problem in mathematical notation" width="400"/>
+<img src="assets/lp_prob.webp" alt="A system of linear equations" width="400"/>
 
 And how do we solve these Linear Programming problems? One of the most well-known and fundamental tools for this is the Simplex Method. Created by George Dantzig in the 1940s, the Simplex is essentially an algorithm, a step-by-step recipe. Imagine that all possible solutions that respect your limitations form a kind of geometric "region" with well-defined corners. The Simplex Method works iteratively: it starts at one of these corners (a valid initial solution) and "jumps" to neighboring corners, always looking for one that improves the result of your objective (more profit, less cost, etc.). It continues doing this until it finds a corner where there is no further improvement possible – this is the optimal point, the best answer to your problem.
 
-<img src="assets/simplex.png" alt="A system of linear inequalities" width="400" style="background: white;" />
+<img src="assets/simplex.png" alt="The Simplex method in action" width="400" style="background: white;" />
 
 To use the Simplex algorithm in a programming context, you need software that implements this algorithm. There are several options available, from commercial tools to open-source libraries. One of the most popular and accessible is PuLP, the Python library we will be using in a Jupyter Notebook environment.
 
