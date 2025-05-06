@@ -52,10 +52,10 @@ Para utilizar o algoritmo Simplex no contexto da programação, você precisa de
 O PuLP é uma biblioteca Python gratuita e de código aberto criada especificamente para modelar problemas de programação linear (e também programação inteira, uma variação). Ele foi desenvolvido inicialmente pela COIN-OR Foundation e outros colaboradores, com o trabalho começando em meados dos anos 2000, e hoje faz parte do ecossistema COIN-OR (Computational Infrastructure for Operations Research), uma iniciativa que reúne diversas ferramentas de pesquisa operacional. A ideia principal por trás do PuLP não é reimplementar o algoritmo Simplex do zero, mas sim fornecer uma interface amigável em Python para que você possa descrever o seu problema de otimização.
 
 O PuLP permite que você traduza os elementos matemáticos da programação linear diretamente para o código Python:
-- Definir o Problema: Você cria um objeto que representa seu problema, indicando se quer maximizar ou minimizar algo (por exemplo, LpProblem("NomeDoProblema", LpMaximize)).
-- Criar as Variáveis: Você declara as variáveis de decisão (aquelas que o Simplex vai encontrar o valor ótimo), como a quantidade de cada produto a fabricar (usando LpVariable("NomeDaVariavel", lowBound=0) para indicar que não pode ser negativa, por exemplo).
-- Adicionar a Função Objetivo: Você escreve a expressão matemática que quer otimizar (como 2\*x + 3\*y) e a adiciona ao seu objeto de problema.
-- Adicionar as Restrições: Da mesma forma, você escreve suas limitações (como x + y <= 100) e as adiciona ao problema.
+- Definir o Problema: Você cria um objeto que representa seu problema, indicando se quer maximizar ou minimizar algo (por exemplo, `LpProblem("NomeDoProblema", LpMaximize)`).
+- Criar as Variáveis: Você declara as variáveis de decisão (aquelas que o Simplex vai encontrar o valor ótimo), como a quantidade de cada produto a fabricar (usando `LpVariable("NomeDaVariavel", lowBound=0)` para indicar que não pode ser negativa, por exemplo).
+- Adicionar a Função Objetivo: Você escreve a expressão matemática que quer otimizar (como `2*x + 3*y`) e a adiciona ao seu objeto de problema.
+- Adicionar as Restrições: Da mesma forma, você escreve suas limitações (como `x + y <= 100`) e as adiciona ao problema.
 
 <img src="assets/pulp_example_code.png" alt="Código PuLP" width="800" />
 
@@ -109,7 +109,7 @@ O coração do problema é decidir quantos clientes vamos aceitar para cada uma 
 - $x5$: Número de clientes aceitos para Financiamento Imobiliário
 - $x6$: Número de clientes aceitos para Aquisição de Veículos
 
-É importante notar que esses valores não podem ser negativos, então todos eles devem ser maiores ou iguais a zero ($xi ≥0$). O objetivo do Simplex será encontrar os valores ideais para $x1$, $x2$, ... , $x6$.
+É importante notar que esses valores não podem ser negativos, então todos eles devem ser maiores ou iguais a zero ($xi ≥ 0$). O objetivo do Simplex será encontrar os valores ideais para $x1$, $x2$, ... , $x6$.
 
 ### 3.2. Função Objetivo
 
@@ -152,7 +152,7 @@ Agora, precisamos definir as limitações e regras que a AutoProvision precisa s
 
 - **Limite de Capital Total:** O orçamento total disponível para alocar nos empréstimos nesta fase é de R$ 125.000.000,00.
 
-    `18000 × x1 +10000 × x2 +15000 × x3 +12500 × x4 +13425 × x5 +8500 × x6 ≤125.000.000`
+    `18000 × x1 + 10000 × x2 + 15000 × x3 + 12500 × x4 + 13425 × x5 + 8500 × x6 ≤ 125.000.000`
 
 - **Mínimo de Clientes por Modalidade (Diversificação/Teste):** Para garantir que tenhamos uma boa taxa de exploração e que ganhemos experiência em todas as linhas de crédito oferecidas, foi definida uma regra de negócio que exige a aceitação de um número mínimo de clientes em cada categoria. Analisando a implementação, parece que esse mínimo foi estabelecido em 400 clientes por modalidade. Isso garante uma amostra mínima para análise de viabilidade de cada produto.
 
@@ -212,9 +212,9 @@ E como o PuLP sabe que algo é uma restrição e não parte do objetivo? Pela pr
 modelo += 18000*x1 + 10000*x2 + ... <= 125000000
 ```
 
-O uso do <= (ou >=, ==) é o sinal para o PuLP. A biblioteca usa a "mágica" da redefinição de operadores (neste caso, os de comparação como __le__ para <=, __ge__ para >=, etc.). Em vez de verificar se a condição é verdadeira ou falsa agora, o PuLP cria um objeto que representa a restrição inteira: a expressão do lado esquerdo, o tipo de comparação e o valor do lado direito.
+O uso do `<=` (ou `>=`, `==`) é o sinal para o PuLP. A biblioteca usa a "mágica" da redefinição de operadores (neste caso, os de comparação como `__le__` para `<=`, `__ge__` para `>=`, etc.). Em vez de verificar se a condição é verdadeira ou falsa agora, o PuLP cria um objeto que representa a restrição inteira: a expressão do lado esquerdo, o tipo de comparação e o valor do lado direito.
 
-Essa restrição completa é adicionada à lista de regras do modelo. O solver, quando chamado pelo comando modelo.solve(), receberá todas essas restrições e terá que encontrar uma solução que respeite todas elas, ao mesmo tempo que otimiza a função objetivo.
+Essa restrição completa é adicionada à lista de regras do modelo. O solver, quando chamado pelo comando `modelo.solve()`, receberá todas essas restrições e terá que encontrar uma solução que respeite todas elas, ao mesmo tempo que otimiza a função objetivo.
 
 As restrições (ou constraints) do modelo podem ser visualizadas a qualquer momento com os atributos `modelo.constraints` ou `modelo.coefficients` (coeficientes são os pesos atribuídos a cada variável usada na constraint); Como no exemplo:
 
@@ -251,7 +251,7 @@ Com o ambiente pronto, começamos a construir o modelo:
 
 1. **Criando o "esqueleto" do problema:** Indicamos que queremos criar um problema chamado 'Maximizar_Lucro_Modalidades_Credito' e que o objetivo é de maximização (LpMaximize).
 
-2. **Declarando as variáveis de decisão:** Definimos nossas variáveis x1​ a x6​, que representarão a quantidade de clientes para cada modalidade. Usamos lowBound=0 para garantir que esses números não sejam negativos.
+2. **Declarando as variáveis de decisão:** Definimos nossas variáveis x1​ a x6​, que representarão a quantidade de clientes para cada modalidade. Usamos `lowBound=0` para garantir que esses números não sejam negativos.
 
     ```python
     # Cria o objeto do problema
@@ -335,7 +335,7 @@ Com o ambiente pronto, começamos a construir o modelo:
 
 Com o modelo completamente definido no código, o passo final é pedir para o PuLP resolvê-lo e, em seguida, visualizar os resultados encontrados:
 
-1. **Resolvendo o modelo:** Um comando simples dispara o processo de otimização. O msg=False é só para evitar mensagens detalhadas do solver na saída.
+1. **Resolvendo o modelo:** Um comando simples dispara o processo de otimização. O `msg=False` é só para evitar mensagens detalhadas do solver na saída.
 
     ```python
     # Pede para o PuLP/CBC encontrar a solução ótima
@@ -489,7 +489,7 @@ Os resultados obtidos foram os seguintes:
 - **Clientes de Financiamento Imobiliário:** 400 clientes
 - **Clientes de Aquisição de Veículos:** 400 clientes
 
-Com essa distribuição de clientes, o Lucro Total máximo estimado para o primeiro mês do primeiro ciclo é de **R$ 3.148.297,00** (valor bastante elevado, considerando o altíssimo investimento).
+Com essa distribuição de clientes, o Lucro Total máximo estimado para o primeiro mês do primeiro ciclo é de **R$ 3.148.297,00** (valor bastante elevado, considerando os altíssimos valores dos parâmetros).
 
 ### Análise dos Resultados e Implicações para o Negócio
 
