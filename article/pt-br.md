@@ -387,7 +387,7 @@ Esses sliders foram vinculados a parâmetros chave do modelo (por exemplo, limit
 
 Essa abordagem visa transformar a análise em um processo mais intuitivo, permitindo visualizar instantaneamente como mudanças nas restrições ou nos objetivos impactam a solução ótima. Um exemplo dessa funcionalidade pode ser visto na animação abaixo, que mostra a alteração de um parâmetro via slider e consequentemente atualização do resultado:
 
-<img src="assets/sliders_use.gif" alt="Exemplo de visualização da função objetivo" width="800"/>
+<img src="assets/sliders_use.gif" alt="Exemplo de visualização dos sliders" width="800"/>
 
 Essa ferramenta pode se tornar bastante útil para entender e identificar quais parâmetros têm maior influência sobre o resultado final.
 
@@ -533,10 +533,9 @@ Por fim, é importante lembrar que este modelo representa o ponto de partida. O 
 
 ## 7. Referências
 
-- [Credit Types Simplex Methods Notebooks](https://github.com/joaqu1m/credit-types-simplex-method).
-- [Simplex Algorithm - Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
-- [COIN-OR Foundation - Computational Infrastructure for Operations Research](https://www.coin-or.org/).
-- [Optimization with PuLP - Documentação do PuLP](https://coin-or.github.io/pulp/).
-- [Base de operações de crédito do SCR - Banco Central do Brasil](https://dadosabertos.bcb.gov.br/dataset/scr_data).
-- [Base de taxas de juros - Banco Central do Brasil](https://www.bcb.gov.br/estatisticas/txjuros).
-- [PyPlot - Documentação do Matplotlib](https://matplotlib.org/stable/api/pyplot_summary.html).
+- [SIMPLEX ALGORITHM - Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
+- [WEBSITE DA COIN-OR FOUNDATION - Computational Infrastructure for Operations Research](https://www.coin-or.org/).
+- [OPTIMIZATION WITH PULP - Documentação do PuLP](https://coin-or.github.io/pulp/).
+- [BASE DE OPERAÇÕES DE CRÉDITO DO SCR - Banco Central do Brasil](https://dadosabertos.bcb.gov.br/dataset/scr_data).
+- [BASE DE TAXAS DE JUROS - Banco Central do Brasil](https://www.bcb.gov.br/estatisticas/txjuros).
+- [PYPLOT - Documentação do Matplotlib](https://matplotlib.org/stable/api/pyplot_summary.html).

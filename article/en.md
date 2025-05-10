@@ -386,7 +386,7 @@ These sliders were linked to key parameters of the model (e.g., capital limits, 
 
 This approach aims to transform the analysis into a more intuitive process, allowing instant visualization of how changes in constraints or objectives impact the optimal solution. An example of this functionality can be seen in the animation below, which shows the alteration of a parameter via slider and the consequent update of the result:
 
-<img src="assets/sliders_use.gif" alt="Example of objective function visualization" width="800"/>
+<img src="assets/sliders_use.gif" alt="Example of sliders visualization" width="800"/>
 
 This tool can become quite useful for understanding and identifying which parameters have the greatest influence on the final result.
 
@@ -532,10 +532,9 @@ Finally, it is important to remember that this model represents the starting poi
 
 ## 7. References
 
-- [Credit Types Simplex Methods Notebooks](https://github.com/joaqu1m/credit-types-simplex-method).
-- [Simplex Algorithm - Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
-- [COIN-OR Foundation - Computational Infrastructure for Operations Research](https://www.coin-or.org/).
-- [Optimization with PuLP - PuLP Documentation](https://coin-or.github.io/pulp/).
-- [SCR Credit Operations Database - Central Bank of Brazil](https://dadosabertos.bcb.gov.br/dataset/scr_data).
-- [Interest Rate Database - Central Bank of Brazil](https://www.bcb.gov.br/estatisticas/txjuros).
-- [PyPlot - Matplotlib Documentation](https://matplotlib.org/stable/api/pyplot_summary.html).
+- [SIMPLEX ALGORITHM - Wikipedia](https://en.wikipedia.org/wiki/Simplex_algorithm).
+- [COIN-OR FOUNDATION WEBSITE - Computational Infrastructure for Operations Research](https://www.coin-or.org/).
+- [OPTIMIZATION WITH PULP - PuLP Documentation](https://coin-or.github.io/pulp/).
+- [SCR CREDIT OPERATIONS DATABASE - Central Bank of Brazil](https://dadosabertos.bcb.gov.br/dataset/scr_data).
+- [INTEREST RATE DATABASE - Central Bank of Brazil](https://www.bcb.gov.br/estatisticas/txjuros).
+- [PYPLOT - Matplotlib Documentation](https://matplotlib.org/stable/api/pyplot_summary.html).
