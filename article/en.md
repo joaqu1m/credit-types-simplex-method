@@ -231,7 +231,9 @@ The model's constraints can be viewed at any time with the attributes `model.con
 
 To run the code, you will need a Jupyter Notebook environment. You can use Google Colab or install Jupyter locally. For this project, a development container with Visual Studio Code was configured to facilitate setting up the notebook locally. This container automatically installs the Python version used in building the model, all extensions, plus the `ipykernel`, `jupyter`, and `pulp` libraries, which are necessary to run the code. To use the development container, you will need [Docker](https://www.docker.com/get-started/) installed on your machine.
 
-When you open the project in VSCode, you will see a notification asking if you want to open the project in a container. Click "Reopen in Container". This will create an isolated environment with all the necessary dependencies to run the code, separate from your local environment and avoiding version conflicts. After opening the container, you will see a directory called `notebook` in the side panel. Inside it, you will find several notebooks containing the model's code. For now, we will only deal with `solver.ipynb`, which contains the explained code of the model.
+When you open the project in VSCode, you will see a notification asking if you want to open the project in a container. Click "Reopen in Container". This will create an isolated environment with all the necessary dependencies to run the code, separate from your local environment and avoiding version conflicts.
+
+After opening the container, you will see a directory called `notebook` in the side panel. Inside it, you will find several notebooks containing the model's code. For now, we will only deal with `solver.ipynb`, which contains the explained code of the model.
 
 ### 4.3. Solving the problem with PuLP
 
